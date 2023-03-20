@@ -5,6 +5,8 @@ import torch
 from torch import nn
 from torchvision.models import resnet50, ResNet50_Weights
 
+from paths.paths import idx_to_cls_dict_path, models_path
+
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 def load_states(save_state_path:str, model:torch.nn.Module):
@@ -15,7 +17,7 @@ def load_states(save_state_path:str, model:torch.nn.Module):
     loss = checkpoint['loss']
     return model, epoch, loss
 
-with open('./data/cls_to_idx_dict_50classes_v2.pkl', 'rb') as in_f:
+with open(idx_to_cls_dict_path, 'rb') as in_f:
     idx_to_class = pickle.load(in_f)
 
 weights = ResNet50_Weights.DEFAULT # Cambiar el modelo pre-entrenado según sea necesario
@@ -38,8 +40,8 @@ model_2.fc = linear_layers
 model_2.to(device)
 
 selected_file_name = 'model_2_b-hard-squared-dist_ep22_50cls.pt' # cambiar el nombre del modelo según sea necesario
-models_path = r'./static/trained_models/'
-model_2, _, _ = load_states(join(models_path, selected_file_name), model_2)
+# models_path = r'./static/trained_models/'
+model_2, _, _ = load_states(models_path / selected_file_name, model_2)
 for param in model_2.parameters():
     param.requires_grad = False
     

@@ -1,21 +1,27 @@
 from os.path import join
 import pickle
+from pathlib import Path
+import platform
 
 import numpy as np
 import torch
 from torch import nn
 from torchvision.models import resnet50, ResNet50_Weights
+
 from models import model_2
+from paths.paths import embeddings_and_labels_path, imgs_list_path
 
 
-with open('./static/embeddings/sampled_train_arrays_model_2_b-hard-squared-dist_50classes_ep22_080323.npz', 'rb') as in_file: # # arrays_1_1.npz for model_2_b-hard_50classes_31ep_020323 -> model: model_2_b-hard_ep25_50cls.pt
+with open(embeddings_and_labels_path, 'rb') as in_file: # # arrays_1_1.npz for model_2_b-hard_50classes_31ep_020323 -> model: model_2_b-hard_ep25_50cls.pt
     npz_file = np.load(in_file)
     embeddings, labels = npz_file['embeddings'], npz_file['labels']
 
-with open('./data/sampled_train_imgs_path_1.pkl', 'rb') as in_file:
-    test_imgs_path = pickle.load(in_file)
+with open(imgs_list_path, 'rb') as in_file:
+    imgs_path = pickle.load(in_file)
 
-imgs_path_array = np.asarray(test_imgs_path)
+imgs_path_array = np.asarray(imgs_path)
+if platform.system() == 'Linux':
+    imgs_path_array = [img_path.as_posix() for img_path in imgs_path_array]
 
 
 def calculate_embeddings(img_tensor: torch.tensor, model: torch.nn.Module):
