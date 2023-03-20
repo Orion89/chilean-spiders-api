@@ -9,9 +9,9 @@ import numpy as np
 import torch
 from torch.utils.data import DataLoader
 from sklearn.metrics.pairwise import euclidean_distances
-from models import preprocess, model_2, idx_to_class
-from embeddings_funcs import calculate_embeddings, calculate_distances, k_nearest_neighbors
-from embeddings_funcs import embeddings, labels, imgs_path_array
+from feature_extractors.models import preprocess, model_2, idx_to_class
+from feature_extractors.embeddings_funcs import calculate_embeddings, calculate_distances, k_nearest_neighbors
+from feature_extractors.embeddings_funcs import embeddings, labels, imgs_path_array
 from schemas.preds_data_models import PredictionsKNN, TrainClasses, EmeddingInfo, ImagesIdxs
 from utils.distances import euclidean_distance
 from utils.utils import ImgDataset

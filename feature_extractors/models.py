@@ -5,7 +5,7 @@ import torch
 from torch import nn
 from torchvision.models import resnet50, ResNet50_Weights
 
-from paths.paths import idx_to_cls_dict_path, models_path
+from file_paths.paths import idx_to_cls_dict_path, models_path
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 

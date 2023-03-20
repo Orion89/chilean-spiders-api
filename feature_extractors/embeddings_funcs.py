@@ -8,8 +8,8 @@ import torch
 from torch import nn
 from torchvision.models import resnet50, ResNet50_Weights
 
-from models import model_2
-from paths.paths import embeddings_and_labels_path, imgs_list_path
+from feature_extractors.models import model_2
+from file_paths.paths import embeddings_and_labels_path, imgs_list_path
 
 
 with open(embeddings_and_labels_path, 'rb') as in_file: # # arrays_1_1.npz for model_2_b-hard_50classes_31ep_020323 -> model: model_2_b-hard_ep25_50cls.pt
