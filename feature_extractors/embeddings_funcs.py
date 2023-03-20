@@ -21,7 +21,7 @@ with open(imgs_list_path, 'rb') as in_file:
 
 imgs_path_array = np.asarray(imgs_path)
 if platform.system() == 'Linux':
-    imgs_path_array = [img_path.as_posix() for img_path in imgs_path_array]
+    imgs_path_array = [img_path.replace('\\', '/') for img_path in imgs_path_array]
 
 
 def calculate_embeddings(img_tensor: torch.tensor, model: torch.nn.Module):

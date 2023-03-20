@@ -41,7 +41,7 @@ model_2.to(device)
 
 selected_file_name = 'model_2_b-hard-squared-dist_ep22_50cls.pt' # cambiar el nombre del modelo según sea necesario
 # models_path = r'./static/trained_models/'
-model_2, _, _ = load_states(models_path / selected_file_name, model_2)
+model_2, _, _ = load_states(join(models_path, selected_file_name), model_2)
 for param in model_2.parameters():
     param.requires_grad = False
     
