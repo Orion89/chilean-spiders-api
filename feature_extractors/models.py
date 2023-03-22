@@ -6,6 +6,7 @@ from torch import nn
 from torchvision.models import resnet50, ResNet50_Weights
 
 from file_paths.paths import idx_to_cls_dict_path, models_path
+from utils.utils import download_from_drive
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
@@ -24,6 +25,8 @@ weights = ResNet50_Weights.DEFAULT # Cambiar el modelo pre-entrenado según sea 
 preprocess = weights.transforms()
 preprocess.to(device)
 
+download_from_drive("https://drive.google.com/uc?id=11ZnGZ_3yNjmvg9pGScr7oVOewzo6vtJ4", file_path='model_2_b-hard-squared-dist_ep22_50cls.pt')
+
 model_2 = resnet50()
 num_ftrs = model_2.fc.in_features # dimensión de entrada de la última capa "fc"
 linear_layers = nn.Sequential()
@@ -41,7 +44,7 @@ model_2.to(device)
 
 selected_file_name = 'model_2_b-hard-squared-dist_ep22_50cls.pt' # cambiar el nombre del modelo según sea necesario
 # models_path = r'./static/trained_models/'
-model_2, _, _ = load_states(join(models_path, selected_file_name), model_2)
+model_2, _, _ = load_states(selected_file_name, model_2) # join(models_path, selected_file_name)
 for param in model_2.parameters():
     param.requires_grad = False
     
