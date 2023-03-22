@@ -20,3 +20,5 @@ class ImgDataset(Dataset):
         
 def download_from_drive(url:str, file_path:str):
     gdown.download(url, file_path, quiet=False)
+    print('\nFile downloaded')
+    print('**'*20)
