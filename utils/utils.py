@@ -1,6 +1,12 @@
 import torch
 from torch.utils.data import Dataset
+import gdown
 
+
+def download_from_drive(url:str, file_path:str):
+    gdown.download(url, file_path, quiet=False)
+    print('\nFile downloaded')
+    print('**'*20)
 
 class ImgDataset(Dataset):
     def __init__(self, embeddings, transform=None):

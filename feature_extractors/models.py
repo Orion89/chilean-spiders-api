@@ -6,6 +6,7 @@ from torch import nn
 from torchvision.models import resnet50, ResNet50_Weights
 
 from file_paths.paths import idx_to_cls_dict_path, models_path
+from utils.utils import download_from_drive
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
@@ -40,8 +41,9 @@ model_2.fc = linear_layers
 model_2.to(device)
 
 selected_file_name = 'model_2_b-hard-squared-dist_ep22_50cls.pt' # cambiar el nombre del modelo según sea necesario
+download_from_drive("https://drive.google.com/uc?id=11ZnGZ_3yNjmvg9pGScr7oVOewzo6vtJ4", file_path=selected_file_name)
 # models_path = r'./static/trained_models/'
-model_2, _, _ = load_states(join('../', selected_file_name), model_2) # join(models_path, selected_file_name)
+model_2, _, _ = load_states(selected_file_name, model_2) # join(models_path, selected_file_name)
 for param in model_2.parameters():
     param.requires_grad = False
     
