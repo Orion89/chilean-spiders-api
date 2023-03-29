@@ -22,12 +22,21 @@ embeddings = torch.tensor(embeddings)
 
 app = FastAPI(
     title='chilean spiders identifier',
-    description='an API for k nearest neighbors based on deep metric learning'
+    description='an API for k nearest neighbors for spiders images based on deep metric learning'
 )
 
 @app.get("/")
 def read_root():
-    return {"Hello": "World"}
+    train_classes = [v for k, v in idx_to_class.items()]
+    return {
+        'name': 'Chilean spiders identifiers',
+        'train_set_size': 10_000,
+        'n_classes': len(train_classes),
+        'samples_per_classes': 300,
+        'scope of classes': ['families', 'genera', 'species'],
+        'feature_extractor': 'ResNet50',
+        'embeddings_size': 1024
+    }
 
 
 @app.get("/get_train_classes/", response_model=TrainClasses)
